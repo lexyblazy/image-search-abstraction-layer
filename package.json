@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/lexyblazy/image-search-abstraction-layer#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
+    "axios": "^0.18.0",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3"
   }
 }
