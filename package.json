@@ -1,0 +1,34 @@
+{
+  "name": "image-search-abstraction-layer",
+  "version": "1.0.0",
+  "description": "freecodecamp image search abstraction layer",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lexyblazy/image-search-abstraction-layer.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "javascript",
+    "image",
+    "search"
+  ],
+  "author": "lexy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lexyblazy/image-search-abstraction-layer/issues"
+  },
+  "homepage": "https://github.com/lexyblazy/image-search-abstraction-layer#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
