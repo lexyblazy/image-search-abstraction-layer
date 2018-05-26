@@ -7,21 +7,36 @@ const subscriptionKey = process.env.key1;
 let host = "api.cognitive.microsoft.com";
 let path = "/bing/v7.0/images/search";
 // loads up our variables.env into process.env
-app.set('view engine','ejs');
-app.get('/api/imagesearch/:term',(req,res)=>{
+const history = [];
+app.set("view engine", "ejs");
+app.get("/api/imagesearch/:term", (req, res) => {
+  const { term } = req.params;
+  history.push({ term, when: new Date() });
   axios
-    .get(`https://${host}${path}?q=${encodeURIComponent(req.params.term)}`, {
+    .get(`https://${host}${path}?q=${encodeURIComponent(term)}`, {
       headers: {
         "Ocp-Apim-Subscription-Key": subscriptionKey
       }
     })
-    .then(({ data:{value} }) => {
-     res.json(value);
+    .then(({ data: { value } }) => {
+      const results = value.map(v=>{
+        return {
+          thumbnailUrl: v.thumbnailUrl,
+          url: v.contentUrl,
+          snippet: v.name,
+          context: v.hostPageUrl,
+
+        }
+      })
+      res.json(results);
     })
     .catch(e => {
       console.log("Error =>", e);
     });
-})
+});
+app.get("/api/latest/imagesearch", (req, res) => {
+  res.json(history);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is up an running on ${PORT}`);
