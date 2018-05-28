@@ -11,23 +11,25 @@ const history = [];
 app.set("view engine", "ejs");
 app.get("/api/imagesearch/:term", (req, res) => {
   const { term } = req.params;
+  const { offset } = req.query;
   history.push({ term, when: new Date() });
+  const url = `https://${host}${path}?q=${encodeURIComponent(term)}&count=10&offset=${offset}`;
+  console.log('Url=>',url);
   axios
-    .get(`https://${host}${path}?q=${encodeURIComponent(term)}`, {
+    .get(url, {
       headers: {
         "Ocp-Apim-Subscription-Key": subscriptionKey
       }
     })
     .then(({ data: { value } }) => {
-      const results = value.map(v=>{
+      const results = value.map(v => {
         return {
           thumbnailUrl: v.thumbnailUrl,
           url: v.contentUrl,
           snippet: v.name,
-          context: v.hostPageUrl,
-
-        }
-      })
+          context: v.hostPageUrl
+        };
+      });
       res.json(results);
     })
     .catch(e => {
